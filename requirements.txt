@@ -1,0 +1,15 @@
+# Broker Reels Studio dependencies
+# Python 3.10+ required
+
+# Core image/video
+Pillow>=10.0.0
+
+# Firebase Admin (download photos, upload MP4)
+firebase-admin>=6.5.0
+
+# HTTP + server
+requests>=2.31.0
+flask>=3.0.0
+gunicorn>=21.2.0  # production WSGI
+
+# Note: ffmpeg должен быть установлен системно (apt install ffmpeg)

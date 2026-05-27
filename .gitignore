@@ -1,0 +1,20 @@
+# Secrets
+.env
+.env.*
+firebase_sa.json
+service-account*.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+*.egg-info/
+
+# Work artifacts
+_work/
+
+# OS
+.DS_Store
+Thumbs.db

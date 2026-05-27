@@ -1,0 +1,16 @@
+[Unit]
+Description=Broker Reels Studio HTTP server (Flask)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/broker-reels
+Environment="PYTHONUNBUFFERED=1"
+EnvironmentFile=/opt/broker-reels/.env
+ExecStart=/opt/broker-reels/venv/bin/gunicorn -w 2 -k gthread --threads 4 -b 0.0.0.0:5050 --timeout 180 http_server:app
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

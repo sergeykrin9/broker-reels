@@ -1,8 +1,38 @@
-# Broker Reels Studio
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:003D55,50:c08a52,100:1a1a1d&height=200&section=header&text=Broker%20Reels%20Studio&fontSize=46&fontColor=f5f1e8&fontAlignY=38&desc=AI%20text-to-video%20for%20real%20estate%20·%20Python%20%2B%20ffmpeg%20%2B%20LLM&descSize=14&descAlignY=62" alt="Broker Reels Studio" />
 
-> Python pipeline that turns a real estate listing into a TikTok/Reels-style 9:16 MP4 — captions, price/ROI badges, Ken Burns motion. **End-to-end automation:** broker picks a unit → 30-60 seconds → finished MP4 ready to publish.
+<div align="center">
 
-See the result: [`demo_output.mp4`](./demo_output.mp4).
+<p>
+  <a href="https://github.com/SergeyKrin9/broker-reels/stargazers"><img src="https://img.shields.io/github/stars/SergeyKrin9/broker-reels?style=for-the-badge&color=c08a52&logo=github&labelColor=1a1a1d"></a>
+  <a href="https://github.com/SergeyKrin9/broker-reels/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-c08a52?style=for-the-badge&labelColor=1a1a1d"></a>
+  <img src="https://img.shields.io/badge/Python-3.10%2B-c08a52?style=for-the-badge&logo=python&logoColor=white&labelColor=1a1a1d">
+  <img src="https://img.shields.io/badge/ffmpeg-8.x-c08a52?style=for-the-badge&logo=ffmpeg&logoColor=white&labelColor=1a1a1d">
+  <img src="https://img.shields.io/badge/Format-9%3A16%20MP4-c08a52?style=for-the-badge&labelColor=1a1a1d">
+</p>
+
+<sub>🐍 Python · 🎬 9:16 MP4 · 🧠 LLM-driven captions · ⚡ 30-60 sec per video · 🤖 End-to-end</sub>
+
+</div>
+
+> [!IMPORTANT]
+> **Real production tool.** Used at [B8 Estate](https://b8estate.com) to generate Reels for broker units automatically. Replaces an SMM specialist for content production. See [`demo_output.mp4`](./demo_output.mp4) for an example output.
+
+Python pipeline that turns a real estate listing into a TikTok/Reels-style 9:16 MP4 — captions, price/ROI badges, Ken Burns motion. **End-to-end automation:** broker picks a unit → 30-60 seconds → finished MP4 ready to publish.
+
+### 🎥 See the result
+
+[**📺 demo_output.mp4**](./demo_output.mp4) — click to download/play (3.3 MB, 9:16, 30 sec)
+
+Five generated slides (hero, interior, view, ROI, CTA):
+<table>
+  <tr>
+    <td width="20%"><img src="./output_hero.png" alt="hero" /></td>
+    <td width="20%"><img src="./output_interior.png" alt="interior" /></td>
+    <td width="20%"><img src="./output_view.png" alt="view" /></td>
+    <td width="20%"><img src="./output_roi.png" alt="roi" /></td>
+    <td width="20%"><img src="./output_cta.png" alt="cta" /></td>
+  </tr>
+</table>
 
 ## What it does
 
@@ -103,4 +133,24 @@ python3 orchestrator.py --demo   # uses demo_photos/ + hardcoded captions → de
 
 ---
 
-**Author:** Sergey Krinitsyn · [putksebe.su/cv](https://putksebe.su/cv) · sergeykrin98@gmail.com
+## ⭐ Star history
+
+<a href="https://www.star-history.com/#SergeyKrin9/broker-reels&Date">
+  <img src="https://api.star-history.com/svg?repos=SergeyKrin9/broker-reels&type=Date" alt="Star History" />
+</a>
+
+## 📚 Related work
+
+- **[agnis-workflow](https://github.com/SergeyKrin9/agnis-workflow)** — the methodology that ships projects like this in 2-3 days instead of 2-3 weeks
+- **[mcp-servers](https://github.com/SergeyKrin9/mcp-servers)** — the marketing/ops MCP toolkit used to publish Reels to Telegram and VK from the broker dashboard
+- **[portfolio](https://github.com/SergeyKrin9/portfolio)** — the personal site that ships from this same workflow
+
+---
+
+<div align="center">
+
+**Author:** [Sergey Krinitsyn](https://putksebe.su/cv) · sergeykrin98@gmail.com · [GitHub](https://github.com/SergeyKrin9)
+
+<sub>If this saved you the cost of an SMM specialist — drop a ⭐.</sub>
+
+</div>

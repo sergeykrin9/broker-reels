@@ -4,20 +4,19 @@
 
 <p>
   <a href="https://github.com/SergeyKrin9/broker-reels/stargazers"><img src="https://img.shields.io/github/stars/SergeyKrin9/broker-reels?style=for-the-badge&color=c08a52&logo=github&labelColor=1a1a1d"></a>
-  <a href="https://github.com/SergeyKrin9/broker-reels/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-c08a52?style=for-the-badge&labelColor=1a1a1d"></a>
   <img src="https://img.shields.io/badge/Python-3.10%2B-c08a52?style=for-the-badge&logo=python&logoColor=white&labelColor=1a1a1d">
   <img src="https://img.shields.io/badge/ffmpeg-8.x-c08a52?style=for-the-badge&logo=ffmpeg&logoColor=white&labelColor=1a1a1d">
   <img src="https://img.shields.io/badge/Format-9%3A16%20MP4-c08a52?style=for-the-badge&labelColor=1a1a1d">
 </p>
 
-<sub>🐍 Python · 🎬 9:16 MP4 · 🧠 LLM-driven captions · ⚡ 30-60 sec per video · 🤖 End-to-end</sub>
+<sub>🐍 Python · 🎬 9:16 MP4 · 🧠 LLM-driven captions · 🤖 End-to-end</sub>
 
 </div>
 
 > [!IMPORTANT]
-> **Real production tool.** Used at [B8 Estate](https://b8estate.com) to generate Reels for broker units automatically. Replaces an SMM specialist for content production. See [`demo_output.mp4`](./demo_output.mp4) for an example output.
+> **Listing-to-video pipeline.** See [`demo_output.mp4`](./demo_output.mp4) for an example output.
 
-Python pipeline that turns a real estate listing into a TikTok/Reels-style 9:16 MP4 — captions, price/ROI badges, Ken Burns motion. **End-to-end automation:** broker picks a unit → 30-60 seconds → finished MP4 ready to publish.
+Python pipeline that turns a real estate listing into a TikTok/Reels-style 9:16 MP4 — captions, price/ROI badges, Ken Burns motion. The local pipeline takes listing data and five photos, renders slides, and composes an MP4. Generation time depends on the machine and settings.
 
 ### 🎥 See the result
 
@@ -36,7 +35,7 @@ Five generated slides (hero, interior, view, ROI, CTA):
 
 ## What it does
 
-A marketing engineer for small real estate agencies. Instead of hiring an SMM specialist:
+The integration flow for a real estate agency:
 
 1. Broker clicks "generate video" on a listing in the CRM
 2. A Cloud Function calls this Python service with `unitId`
@@ -46,7 +45,7 @@ A marketing engineer for small real estate agencies. Instead of hiring an SMM sp
 6. ffmpeg adds Ken Burns motion + music → MP4
 7. Result is uploaded back to Storage, broker gets a preview
 
-**Replaces** the work of an SMM specialist for content production — at scale, on demand.
+The repository contains the Python service; the CRM and Cloud Function are external integrations.
 
 ## Architecture
 
@@ -63,7 +62,7 @@ broker_reels/http_server.py (Flask, on a VPS)
   ├─ firebase_client.py     download photos → /tmp
   ├─ caption_generator.py   NVIDIA Llama → 5-frame script JSON
   ├─ reel_composer.py       PIL slides (photo + caption + price-badge)
-  ├─ video_composer (reuse) ffmpeg Ken Burns + music → MP4
+  ├─ orchestrator.py        ffmpeg Ken Burns + optional music → MP4
   └─ firebase_client.py     upload MP4 to Storage
   │
   ▼  callback POST → Cloud Function `brokerReelCompleted`
@@ -81,7 +80,6 @@ Broker sees preview + [Download / Telegram / Regenerate] buttons
 | `firebase_client.py` | Download photos / upload MP4 via Firebase Admin SDK |
 | `orchestrator.py` | End-to-end: photos + unit data → MP4 |
 | `http_server.py` | Flask endpoint for the Cloud Function webhook |
-| `templates/` | Design tokens — colors, fonts, badge templates |
 | `demo_photos/` | Sample photos for local smoke test |
 | `demo_output.mp4` | A real generated reel — open to see the output |
 
@@ -105,9 +103,14 @@ Animation: subtle Ken Burns (1.0 → 1.05), text fade-in, badge zoom-in.
 
 ```bash
 cd broker-reels
-pip install -r requirements.txt
-python3 orchestrator.py --demo   # uses demo_photos/ + hardcoded captions → demo_output.mp4
+python3 -m venv .venv
+source .venv/bin/activate
+pip install Pillow requests
+ffmpeg -version                 # required system dependency; must include libx264
+python3 orchestrator.py --demo --no-ai
 ```
+
+The offline demo uses local photos and fallback captions, writes `demo_output.mp4` and `_work/slides/`, and does not need Firebase or an API key. `--demo` alone enables NVIDIA API captions. Run in a disposable checkout: the output file is overwritten. Design tokens and font fallbacks live in `reel_composer.py`; there is no `templates/` directory. Install `requirements.txt` only for the full service.
 
 ## Tech stack
 
@@ -141,7 +144,7 @@ python3 orchestrator.py --demo   # uses demo_photos/ + hardcoded captions → de
 
 ## 📚 Related work
 
-- **[agnis-workflow](https://github.com/SergeyKrin9/agnis-workflow)** — the methodology that ships projects like this in 2-3 days instead of 2-3 weeks
+- **[agnis-workflow](https://github.com/SergeyKrin9/agnis-workflow)** — a workflow and four Markdown skills for AI-assisted work
 - **[mcp-servers](https://github.com/SergeyKrin9/mcp-servers)** — the marketing/ops MCP toolkit used to publish Reels to Telegram and VK from the broker dashboard
 - **[portfolio](https://github.com/SergeyKrin9/portfolio)** — the personal site that ships from this same workflow
 
@@ -149,8 +152,8 @@ python3 orchestrator.py --demo   # uses demo_photos/ + hardcoded captions → de
 
 <div align="center">
 
-**Author:** [Sergey Krinitsyn](https://putksebe.su/cv) · sergeykrin98@gmail.com · [GitHub](https://github.com/SergeyKrin9)
+**Author:** [Sergei Grin](https://putksebe.su/cv) · sergeykrin98@gmail.com · [GitHub](https://github.com/SergeyKrin9)
 
-<sub>If this saved you the cost of an SMM specialist — drop a ⭐.</sub>
+<sub>See the demo to review the generated video.</sub>
 
 </div>

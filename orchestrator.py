@@ -10,8 +10,8 @@ Steps:
   3. ffmpeg → MP4 (concat + Ken Burns + optional bg music)
 
 CLI:
-  python3 orchestrator.py --demo   # из demo_photos/ + hardcoded data
-  python3 orchestrator.py --input config.json --photos path/to/photos --output reel.mp4
+  python3 orchestrator.py --demo --no-ai   # local photos + fallback captions
+  For custom data, call build_broker_reel() from Python.
 """
 from __future__ import annotations
 import argparse
@@ -287,18 +287,11 @@ def _demo_run(use_ai: bool = True) -> None:
         "installment_terms": "0% · 2 года",
         "description": "Премиум-комплекс из 6 корпусов в Layan, 5 минут до пляжа Bang Tao, гостиничный оператор Unicorn Hospitality, фрихолд.",
     }
-    broker = {"name": "Любовь Стрельцова", "telegram_handle": "@ABG_MEDIA"}
+    broker = {"name": "Demo Broker", "telegram_handle": ""}
 
     output = here / "demo_output.mp4"
-    # 2026-05-26: тестируем разные треки. inspired_energy не подошёл — слишком
-    # обычный для премиум-real-estate. Тестим elevator_uplifting + TODO найти
-    # cinematic ambient (Bensound / Pixabay / Epidemic Sound).
-    music = here.parent / "daily-poster" / "music" / "elevator_uplifting.mp3"
-    if not music.exists():
-        music = None
-        print(f"⚠ Music not found: {music}", file=sys.stderr)
-    else:
-        print(f"♪ Using music: {music.name}", file=sys.stderr)
+    # The demo is self-contained; custom builds can pass a licensed music_path.
+    music = None
 
     result = build_broker_reel(
         unit=unit, project=project, broker=broker,

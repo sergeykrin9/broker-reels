@@ -8,7 +8,7 @@ reel_composer.py — PIL слайды 1080×1920 для broker reels.
 - Captions: top eyebrow + main headline + bottom sub
 
 Usage (standalone smoke test):
-  python3 reel_composer.py demo_photos/hero.jpg demo_output_slide.png --type hero --price "12.5M ₽" --area "65 м²"
+  python3 reel_composer.py demo_photos/hero.webp demo_output_slide.png --type hero --price "12.5M ₽" --area "65 м²"
 """
 from __future__ import annotations
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
